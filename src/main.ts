@@ -1,7 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { AppModule } from './app.module';
-import configuration from './config/configuration';
+
+const PORT = process.env.PORT || 3000;
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
@@ -11,6 +12,6 @@ async function bootstrap() {
       allowedHeaders: 'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe, Authorization',
     }
   });
-  await app.listen(configuration().port);
+  await app.listen(PORT, () => console.log(`Server started at port: ${ PORT }`));
 }
 bootstrap();
